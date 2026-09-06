@@ -14,11 +14,18 @@ export async function POST(request: Request) {
   const properties = payload.properties ?? {};
   try {
     const supabase = createServiceRoleSupabaseClient();
+    const venueSlug = typeof properties.venueSlug === "string" ? properties.venueSlug : null;
+    let venueId: string | null = null;
+    if (venueSlug) {
+      const { data: venue, error: venueError } = await supabase.from("venues").select("id").eq("slug", venueSlug).maybeSingle();
+      if (venueError) throw new Error(`Falha ao consultar espaço: ${venueError.message}`);
+      venueId = (venue as { id?: string } | null)?.id ?? null;
+    }
     const region = typeof properties.regionInterest === "string" && isInterestRegion(properties.regionInterest) ? properties.regionInterest : null;
     const searchZone = typeof properties.searchZone === "string" && isInterestRegion(properties.searchZone) ? properties.searchZone : null;
     const { error } = await supabase.from("funnel_events").insert({
       event_name: payload.event,
-      venue_id: typeof properties.venueId === "string" ? properties.venueId : null,
+      venue_id: venueId,
       event_type: typeof properties.eventType === "string" ? properties.eventType : null,
       neighborhood: typeof properties.neighborhood === "string" ? properties.neighborhood : null,
       event_date: typeof properties.eventDate === "string" && properties.eventDate.trim() ? properties.eventDate : null,
