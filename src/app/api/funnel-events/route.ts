@@ -15,6 +15,7 @@ export async function POST(request: Request) {
   try {
     const supabase = createServiceRoleSupabaseClient();
     const region = typeof properties.regionInterest === "string" && isInterestRegion(properties.regionInterest) ? properties.regionInterest : null;
+    const searchZone = typeof properties.searchZone === "string" && isInterestRegion(properties.searchZone) ? properties.searchZone : null;
     const { error } = await supabase.from("funnel_events").insert({
       event_name: payload.event,
       venue_id: typeof properties.venueId === "string" ? properties.venueId : null,
@@ -29,6 +30,7 @@ export async function POST(request: Request) {
       session_id: typeof properties.sessionId === "string" ? properties.sessionId : null,
       occurred_at: new Date().toISOString(),
       ...(region ? { interested_region: region } : {}),
+      ...(searchZone ? { search_zone: searchZone } : {}),
     });
     if (error) throw error;
     return NextResponse.json({ ok: true }, { status: 201 });
