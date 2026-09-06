@@ -77,14 +77,14 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           {hasFilters ? <dl className="mt-6 grid gap-3 rounded-2xl border border-[var(--border)] bg-white p-5 text-sm sm:grid-cols-2"><div><dt className="text-[var(--muted)]">Ocasião</dt><dd className="mt-1 font-semibold">{values.activity || "A definir"}</dd></div><div><dt className="text-[var(--muted)]">Local</dt><dd className="mt-1 font-semibold">{values.location || "A definir"}</dd></div><div><dt className="text-[var(--muted)]">Zona</dt><dd className="mt-1 font-semibold">{values.zone || "A definir"}</dd></div><div><dt className="text-[var(--muted)]">Pessoas</dt><dd className="mt-1 font-semibold">{values.guests || "A definir"}</dd></div><div><dt className="text-[var(--muted)]">Data</dt><dd className="mt-1 font-semibold">{values.date || "A definir"}</dd></div>{regionInterest ? <div><dt className="text-[var(--muted)]">Região de interesse</dt><dd className="mt-1 font-semibold">{regionInterest}</dd></div> : null}</dl> : null}
           {!exactResults.length && hasFilters ? <p className="mt-6 rounded-2xl border border-[var(--border)] bg-white p-5 text-[var(--muted)]">Ainda não encontramos um espaço com essa combinação. Ajuste os filtros ou conte um pouco mais sobre o seu evento.</p> : null}
           <div className="mt-8 grid gap-x-6 gap-y-10 sm:grid-cols-2 xl:grid-cols-3">
-            {results.map((venue) => <VenueCard activity={values.activity} key={venue.id} regionInterest={regionInterest} showPrice venue={venue} />)}
+            {results.map((venue) => <VenueCard activity={values.activity} key={venue.id} regionInterest={regionInterest} searchContext={{ location: values.location, zone: values.zone, date: values.date, guests: values.guests }} showPrice source="search_results" venue={venue} />)}
           </div>
           {recommendations.length ? <section className="mt-12" aria-labelledby="recommendations-heading">
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--primary)]">Uma alternativa para você</p>
             <h3 className="mt-3 font-display text-3xl leading-none sm:text-4xl" id="recommendations-heading">Sugestões para o seu evento</h3>
             <p className="mt-3 max-w-2xl text-[var(--muted)]">Não são correspondências exatas, mas estes espaços se aproximam dos filtros escolhidos.</p>
             <div className="mt-8 grid gap-x-6 gap-y-10 sm:grid-cols-2 xl:grid-cols-3">
-              {recommendations.map((venue) => <VenueCard activity={values.activity} key={venue.id} regionInterest={regionInterest} showPrice venue={venue} />)}
+              {recommendations.map((venue) => <VenueCard activity={values.activity} key={venue.id} regionInterest={regionInterest} searchContext={{ location: values.location, zone: values.zone, date: values.date, guests: values.guests }} showPrice source="search_recommendations" venue={venue} />)}
             </div>
           </section> : null}
         </section>

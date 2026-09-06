@@ -78,3 +78,12 @@ it("anula data vazia e contagem fora de faixa, que violariam as restrições da 
   expect(row.event_date).toBeNull();
   expect(row.guest_count).toBeNull();
 });
+
+it("mantém zona do filtro e região de interesse como dimensões distintas no clique do catálogo", async () => {
+  insert.mockResolvedValue({ error: null });
+
+  await post({ event: "venue_card_clicked", properties: { venueId: "venue-123", regionInterest: "Norte", searchZone: "Oeste" } });
+
+  const row = insert.mock.calls[0][0] as Record<string, unknown>;
+  expect(row).toMatchObject({ venue_id: "venue-123", interested_region: "Norte", search_zone: "Oeste" });
+});
