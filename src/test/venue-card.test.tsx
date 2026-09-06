@@ -80,7 +80,7 @@ it("registra anonimamente o espaço e os filtros ao abri-lo pelo catálogo", asy
   expect(listener.mock.calls[0][0].detail).toMatchObject({
     event: "venue_card_clicked",
     properties: {
-      venueId: venues[0].id,
+      venueSlug: venues[0].slug,
       eventType: "Casamento",
       neighborhood: "Pinheiros, São Paulo, SP",
       regionInterest: "Norte",
@@ -90,6 +90,7 @@ it("registra anonimamente o espaço e os filtros ao abri-lo pelo catálogo", asy
       source: "search_results",
     },
   });
+  expect(listener.mock.calls[0][0].detail.properties).not.toHaveProperty("venueId");
 
   window.removeEventListener("arcora:analytics", listener);
 });

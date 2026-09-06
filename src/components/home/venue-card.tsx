@@ -27,7 +27,7 @@ export function VenueCard({ venue, featured = false, regionInterest, activity, s
   const selectedZone = searchContext?.zone && isInterestRegion(searchContext.zone) ? searchContext.zone : undefined;
 
   function trackVenueOpen() {
-    const properties: Record<string, string | number> = { venueId: venue.id, source };
+    const properties: Record<string, string | number> = { venueSlug: venue.slug, source };
     if (requestedActivity) properties.eventType = requestedActivity;
     if (searchContext?.location) properties.neighborhood = searchContext.location;
     if (regionInterest) properties.regionInterest = regionInterest;
