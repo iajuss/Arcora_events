@@ -1,8 +1,8 @@
-# Breeze — estado da implementação
+# Arcora— estado da implementação
 
 ## Objetivo entregue
 
-Landing page da **Breeze**, um marketplace de locação de espaços para eventos, construída exclusivamente para geração de demanda. A proposta central é: **“Onde boas ideias ganham cenário.”**
+Landing page da **Arcora**, um marketplace de locação de espaços para eventos, construída exclusivamente para geração de demanda. A proposta central é: **“Onde boas ideias ganham cenário.”**
 
 O projeto não possui fluxos de captação de anfitriões, painel administrativo, pagamento ou reservas reais nesta etapa.
 
