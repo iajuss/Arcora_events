@@ -1,4 +1,4 @@
-# Arcora— estado da implementação
+# Arcora — estado da implementação
 
 ## Objetivo entregue
 
